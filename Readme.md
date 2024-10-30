@@ -1,22 +1,16 @@
-# Simple Video Codec Project
+# Simple Video Codec
 
-This repository contains a basic implementation of a video codec, developed to demonstrate video compression and decompression techniques. The project includes modules for encoding, decoding, and processing video files using custom algorithms and standard compression techniques.
+This repository provides a simple video codec implementation using various video compression techniques, including color transformation, chroma downsampling, block-based Discrete Cosine Transform (DCT) with block sampling, and motion compensation.
 
-## Project Structure
+## Overview
 
-```
-SimpleVideoCodec/
-├── data/                   # Directory for storing video files for encoding/decoding
-├── notebooks/              # Jupyter notebooks for video processing exploration
-├── src/                    # Source code for codec implementation
-│   ├── encoder/            # Video encoding scripts and algorithms
-│   ├── decoder/            # Video decoding scripts and algorithms
-│   ├── utils/              # Utility functions for video manipulation
-├── requirements.txt        # Python dependencies
-├── README.md               # Project description and usage guide
-└── main.py                 # Main script to run the codec
-```
+This codec aims to achieve efficient video compression by leveraging:
+- **Color Transformation**: Converts RGB to YCbCr format, separating luminance and chrominance channels.
+- **Chroma Downsampling**: Reduces color data to save space while maintaining visual quality.
+- **Block-Based DCT**: Applies DCT on 8x8 blocks and selectively keeps coefficients.
+- **Motion Compensation**: Uses a nearest-neighbor approach for detecting and encoding motion.
 
+The codec follows a Group of Pictures (GoP) structure, consisting of Intra (I) frames and Predicted (P) frames.
 ## Setup Instructions
 
 1. **Clone the Repository**:
@@ -31,32 +25,26 @@ SimpleVideoCodec/
    pip install -r requirements.txt
    ```
 
-3. **Prepare Video Files**:
-   - Place your input video files in the `data/` directory or use the provided utility scripts in `src/utils/` to load and preprocess videos.
+3. **Prepare Video File**:
+   - Place your input video as `videorec.mp4` in the main directory or modify paths in the notebook.
 
 ## Usage
 
-### Encoding a Video
-To encode a video file, run:
-```bash
-python main.py --encode path/to/video.mp4
-```
+### Encoding and Decoding Workflow
 
-### Decoding a Video
-To decode an encoded video file, use:
-```bash
-python main.py --decode path/to/encoded_file
-```
+1. Run the Jupyter notebook `Simple_Video_Codec.ipynb` to encode and decode a video file.
+2. The codec will:
+   - **Encode** the video and save it as `encoded.pickle`.
+   - **Decode** the compressed data and generate the video `decoded.mp4`.
 
-### Jupyter Notebooks
-The `notebooks/` directory contains interactive notebooks for experimenting with encoding and decoding parameters, analyzing compression ratios, and visualizing results.
+### Performance Metrics
 
-## Key Modules
+The notebook provides:
+- **Compression Ratio**: Logarithmic ratio of decoded to encoded size.
+- **SSIM (Structural Similarity Index)**: Quantitative measure of video quality.
+- **Overall Performance**: Based on compression ratio and SSIM.
 
-- **Encoder**: Modules for compressing video files using various encoding schemes.
-- **Decoder**: Modules for decompressing and reconstructing video files.
-- **Utilities**: Helper functions for video handling, format conversion, and frame manipulation.
+## Key Functions
 
-## Contributing
-Contributions are welcome! Feel free to open issues or submit pull requests to improve the codec or add new features.
-
+- **encoder**: Compresses the video using color transformation, downsampling, DCT, and motion compensation.
+- **decoder**: Reconstructs the video from the encoded data.
